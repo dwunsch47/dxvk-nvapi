@@ -419,7 +419,7 @@ NVAPI_FUNCTION NvAPI_GPU_GetMemoryInfo(NvPhysicalGpuHandle hPhysicalGpu, NV_DISP
             pMemoryInfoV1->dedicatedVideoMemory = memoryInfo.DedicatedVideoMemory / 1024;
             pMemoryInfoV1->systemVideoMemory = memoryInfo.DedicatedSystemMemory / 1024;
             pMemoryInfoV1->sharedSystemMemory = memoryInfo.SharedSystemMemory / 1024;
-            pMemoryInfoV1->availableDedicatedVideoMemory = std::min(memoryBudgetInfo.Budget, memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) / 1024;
+            pMemoryInfoV1->availableDedicatedVideoMemory = (memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) / 1024;
             break;
         }
         case NV_DISPLAY_DRIVER_MEMORY_INFO_VER_2: {
@@ -427,7 +427,7 @@ NVAPI_FUNCTION NvAPI_GPU_GetMemoryInfo(NvPhysicalGpuHandle hPhysicalGpu, NV_DISP
             pMemoryInfoV2->dedicatedVideoMemory = memoryInfo.DedicatedVideoMemory / 1024;
             pMemoryInfoV2->systemVideoMemory = memoryInfo.DedicatedSystemMemory / 1024;
             pMemoryInfoV2->sharedSystemMemory = memoryInfo.SharedSystemMemory / 1024;
-            pMemoryInfoV2->availableDedicatedVideoMemory = std::min(memoryBudgetInfo.Budget, memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) / 1024;
+            pMemoryInfoV2->availableDedicatedVideoMemory = (memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) / 1024;
             // Ensure that currently available memory is lower than dedicated memory, relevant on 32Bit platforms because DXVK limits dedicated video on those
             pMemoryInfoV2->curAvailableDedicatedVideoMemory = (memoryBudgetInfo.Budget - memoryBudgetInfo.CurrentUsage) / 1024;
             break;
@@ -437,7 +437,7 @@ NVAPI_FUNCTION NvAPI_GPU_GetMemoryInfo(NvPhysicalGpuHandle hPhysicalGpu, NV_DISP
             pMemoryInfoV3->dedicatedVideoMemory = memoryInfo.DedicatedVideoMemory / 1024;
             pMemoryInfoV3->systemVideoMemory = memoryInfo.DedicatedSystemMemory / 1024;
             pMemoryInfoV3->sharedSystemMemory = memoryInfo.SharedSystemMemory / 1024;
-            pMemoryInfoV3->availableDedicatedVideoMemory = std::min(memoryBudgetInfo.Budget, memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) / 1024;
+            pMemoryInfoV3->availableDedicatedVideoMemory = (memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) / 1024;
             pMemoryInfoV3->curAvailableDedicatedVideoMemory = (memoryBudgetInfo.Budget - memoryBudgetInfo.CurrentUsage) / 1024;
             pMemoryInfoV3->dedicatedVideoMemoryEvictionsSize = 0;
             pMemoryInfoV3->dedicatedVideoMemoryEvictionCount = 0;
@@ -476,7 +476,7 @@ NVAPI_FUNCTION NvAPI_GPU_GetMemoryInfoEx(NvPhysicalGpuHandle hPhysicalGpu, NV_GP
             pMemoryInfoV1->dedicatedVideoMemory = memoryInfo.DedicatedVideoMemory;
             pMemoryInfoV1->systemVideoMemory = memoryInfo.DedicatedSystemMemory;
             pMemoryInfoV1->sharedSystemMemory = memoryInfo.SharedSystemMemory;
-            pMemoryInfoV1->availableDedicatedVideoMemory = std::min(memoryBudgetInfo.Budget, memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory);
+            pMemoryInfoV1->availableDedicatedVideoMemory = memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory;
             // See comment in NvAPI_GPU_GetMemoryInfo
             pMemoryInfoV1->curAvailableDedicatedVideoMemory = memoryBudgetInfo.Budget - memoryBudgetInfo.CurrentUsage;
             pMemoryInfoV1->dedicatedVideoMemoryEvictionsSize = 0;
