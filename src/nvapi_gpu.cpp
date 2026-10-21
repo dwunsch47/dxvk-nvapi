@@ -478,7 +478,7 @@ NVAPI_FUNCTION NvAPI_GPU_GetMemoryInfoEx(NvPhysicalGpuHandle hPhysicalGpu, NV_GP
             pMemoryInfoV1->sharedSystemMemory = memoryInfo.SharedSystemMemory;
             pMemoryInfoV1->availableDedicatedVideoMemory = memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory;
             // See comment in NvAPI_GPU_GetMemoryInfo
-            pMemoryInfoV1->curAvailableDedicatedVideoMemory = std::min(memoryBudgetInfo.Budget, memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory);
+            pMemoryInfoV1->curAvailableDedicatedVideoMemory = std::min(memoryBudgetInfo.Budget, memoryInfo.DedicatedVideoMemory - memoryInfo.ReservedVideoMemory) - memoryBudgetInfo.CurrentUsage;
             pMemoryInfoV1->dedicatedVideoMemoryEvictionsSize = 0;
             pMemoryInfoV1->dedicatedVideoMemoryEvictionCount = 0;
             pMemoryInfoV1->dedicatedVideoMemoryPromotionsSize = 0;
